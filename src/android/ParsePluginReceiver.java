@@ -1,9 +1,11 @@
 package org.apache.cordova.core;
 
+import com.earliz.app.R;
 import com.parse.ParsePushBroadcastReceiver;
 import com.parse.ParseAnalytics;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
@@ -45,6 +47,15 @@ public class ParsePluginReceiver extends ParsePushBroadcastReceiver
                 ParsePlugin.setLaunchNotification(pushData);
             }
         }
+    }
+
+    @Override
+    protected Notification getNotification(Context context, Intent intent) {
+        Notification notification = super.getNotification(context, intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notification.color = context.getResources().getColor(R.color.background_notif_icon);
+        }
+        return notification;
     }
 
     private static JSONObject getPushData(Intent intent){
