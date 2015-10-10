@@ -23,7 +23,7 @@ static NSString * const PPReceivedInForeground = @"receivedInForeground";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
 }
-
+/*
 - (void)trackEvent:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
     NSString *eventName = [command.arguments objectAtIndex:0];
@@ -49,7 +49,7 @@ static NSString * const PPReceivedInForeground = @"receivedInForeground";
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
-
+*/
 - (void)initialize: (CDVInvokedUrlCommand*)command
 {
     [self.commandDelegate runInBackground:^{
@@ -163,8 +163,8 @@ void MethodSwizzle(Class c, SEL originalSelector) {
 + (void)load
 {
     MethodSwizzle([self class], @selector(application:didRegisterForRemoteNotificationsWithDeviceToken:));
-    MethodSwizzle([self class], @selector(application:didReceiveRemoteNotification:fetchCompletionHandler:));
-    MethodSwizzle([self class], @selector(application:didFinishLaunchingWithOptions:));
+    //MethodSwizzle([self class], @selector(application:didReceiveRemoteNotification:fetchCompletionHandler:));
+    //MethodSwizzle([self class], @selector(application:didFinishLaunchingWithOptions:));
     MethodSwizzle([self class], @selector(applicationDidBecomeActive:));
 }
 
@@ -194,7 +194,7 @@ void MethodSwizzle(Class c, SEL originalSelector) {
         return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
 }
-
+/*
 - (void)noop_application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
 {
 }
@@ -243,7 +243,7 @@ void MethodSwizzle(Class c, SEL originalSelector) {
 
     return YES;
 }
-
+*/
 - (BOOL)isInForeground:(UIApplication *)application {
     return application.applicationState == UIApplicationStateActive;
 }
