@@ -1,15 +1,5 @@
 var parsePlugin = {
 
-    registerCallback: function(ecb, successCallback, errorCallback) {
-        cordova.exec(
-            successCallback,
-            errorCallback,
-            'ParsePlugin',
-            'registerCallback',
-            [ecb]
-        );
-    },
-
     initialize: function(appId, clientKey, successCallback, errorCallback) {
         cordova.exec(
             successCallback,
@@ -78,17 +68,6 @@ var parsePlugin = {
             'ParsePlugin',
             'resetBadge',
             []
-        );
-    },
-
-    // iOS only
-    trackEvent: function(name, dimensions, successCallback, errorCallback) {
-        cordova.exec(
-            successCallback,
-            errorCallback,
-            'ParsePlugin',
-            'trackEvent',
-            [ name, dimensions ]
         );
     }
 };

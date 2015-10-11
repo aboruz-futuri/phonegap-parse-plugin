@@ -23,33 +23,7 @@ static NSString * const PPReceivedInForeground = @"receivedInForeground";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
 }
-/*
-- (void)trackEvent:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult* pluginResult = nil;
-    NSString *eventName = [command.arguments objectAtIndex:0];
-    NSDictionary *dimensions = [command.arguments objectAtIndex:1];
-    NSLog(@"ParsePlugin.trackEvent %@ %@", eventName, dimensions);
-    [PFAnalytics trackEvent:eventName dimensions:dimensions];
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
-}
-
-- (void)registerCallback: (CDVInvokedUrlCommand*)command
-{
-    ecb = [command.arguments objectAtIndex:0];
-
-    // If the app was inactive and launched from a notification, launchNotification stores the notification temporarily.
-    // Now that the device is ready, we can handle the stored launchNotification and remove it.
-    if (launchNotification) {
-        [[[UIApplication sharedApplication] delegate] performSelector:@selector(handleRemoteNotification:payload:) withObject:[UIApplication sharedApplication] withObject:launchNotification];
-        launchNotification = nil;
-    }
-
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-*/
 - (void)initialize: (CDVInvokedUrlCommand*)command
 {
     [self.commandDelegate runInBackground:^{
@@ -163,8 +137,6 @@ void MethodSwizzle(Class c, SEL originalSelector) {
 + (void)load
 {
     MethodSwizzle([self class], @selector(application:didRegisterForRemoteNotificationsWithDeviceToken:));
-    //MethodSwizzle([self class], @selector(application:didReceiveRemoteNotification:fetchCompletionHandler:));
-    //MethodSwizzle([self class], @selector(application:didFinishLaunchingWithOptions:));
     MethodSwizzle([self class], @selector(applicationDidBecomeActive:));
 }
 
@@ -193,59 +165,6 @@ void MethodSwizzle(Class c, SEL originalSelector) {
     } else {
         return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
-}
-/*
-- (void)noop_application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
-{
-}
-
-- (void)swizzled_application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
-{
-    // Call existing method
-    [self swizzled_application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:handler];
-
-    NSMutableDictionary *notification = [NSMutableDictionary dictionaryWithDictionary:userInfo];
-    [notification setObject:[NSNumber numberWithBool:[self isInForeground:application]] forKey:PPReceivedInForeground];
-    [self handleRemoteNotification:application payload:notification];
-
-    handler(UIBackgroundFetchResultNoData);
-}
-
-- (BOOL)noop_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    return YES;
-}
-
-- (BOOL)swizzled_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    // Call existing method
-    [self swizzled_application:application didFinishLaunchingWithOptions:launchOptions];
-
-    NSString *appId = [[NSUserDefaults standardUserDefaults] stringForKey:PPAppId];
-    NSString *clientKey = [[NSUserDefaults standardUserDefaults] stringForKey:PPClientKey];
-
-    if (appId && clientKey) {
-        [Parse setApplicationId:appId clientKey:clientKey];
-    }
-
-    NSDictionary *launchPayload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-
-    if (launchPayload) {
-        NSMutableDictionary *notification = [NSMutableDictionary dictionaryWithDictionary:launchPayload];
-        [notification setObject:[NSNumber numberWithBool:[self isInForeground:application]] forKey:PPReceivedInForeground];
-
-        // If the app is inactive, store the notification so that we can invoke the web app when it's ready
-        if (application.applicationState == UIApplicationStateInactive) {
-            launchNotification = notification;
-        } else {
-            [self handleRemoteNotification:application payload:notification];
-        }
-    }
-
-    return YES;
-}
-*/
-- (BOOL)isInForeground:(UIApplication *)application {
-    return application.applicationState == UIApplicationStateActive;
 }
 
 - (void)noop_applicationDidBecomeActive:(UIApplication *)application {

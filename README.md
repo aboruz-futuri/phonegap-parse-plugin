@@ -10,10 +10,10 @@ This plugin exposes native API push services to JS:
 * <a href="https://www.parse.com/docs/android/api/com/parse/PushService.html#getSubscriptions(android.content.Context)">getSubscriptions</a>
 * <a href="https://www.parse.com/docs/android/api/com/parse/PushService.html#subscribe(android.content.Context, java.lang.String, java.lang.Class, int)">subscribe</a>
 * <a href="https://www.parse.com/docs/android/api/com/parse/PushService.html#unsubscribe(android.content.Context, java.lang.String)">unsubscribe</a>
-* <a href="https://parse.com/docs/osx/api/Classes/PFAnalytics.html#//api/name/trackEvent:dimensions:">trackEvent (iOS only)</a>
+* ~~<a href="https://parse.com/docs/osx/api/Classes/PFAnalytics.html#//api/name/trackEvent:dimensions:">trackEvent (iOS only)</a>~~
 
 As well as other utility methods:
-* registerCallback: allows us to get the notification back in javascript
+* ~~registerCallback: allows us to get the notification back in javascript~~
 * resetBadge: resets the badge to 0 (iOS only) --this can also be accomplished by setting the badge to 0 in the _Installation table using the <a href="https://parse.com/docs/rest/guide#objects-updating-objects">Parse REST API</a>
 
 Installation
@@ -22,8 +22,8 @@ Installation
 Pick one of these two commands:
 
 ```
-phonegap local plugin add https://github.com/grrrian/phonegap-parse-plugin --variable APP_ID=PARSE_APP_ID --variable CLIENT_KEY=PARSE_CLIENT_KEY
-cordova plugin add https://github.com/grrrian/phonegap-parse-plugin --variable APP_ID=PARSE_APP_ID --variable CLIENT_KEY=PARSE_CLIENT_KEY
+phonegap local plugin add https://github.com/Earliz/phonegap-parse-plugin --variable APP_ID=PARSE_APP_ID --variable CLIENT_KEY=PARSE_CLIENT_KEY
+cordova plugin add https://github.com/Earliz/phonegap-parse-plugin --variable APP_ID=PARSE_APP_ID --variable CLIENT_KEY=PARSE_CLIENT_KEY
 ```
 
 Initial Setup
@@ -86,7 +86,7 @@ parsePlugin.initialize(appId, clientKey, function() {
 
 ```
 
-To receive notification callbacks, on device ready:
+~~To receive notification callbacks, on device ready:~~
 
 
 ```

@@ -10,7 +10,6 @@
 - (void)subscribe: (CDVInvokedUrlCommand *)command;
 - (void)unsubscribe: (CDVInvokedUrlCommand *)command;
 - (void)resetBadge: (CDVInvokedUrlCommand *)command;
-//- (void)trackEvent: (CDVInvokedUrlCommand *)command;
 
 @end
 
