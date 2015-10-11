@@ -3,23 +3,17 @@ package org.apache.cordova.core;
 import android.app.Application;
 import android.util.Log;
 
-import java.util.Set;
+import java.util.List;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.CordovaInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.parse.Parse;
 import com.parse.ParseInstallation;
-import com.parse.PushService;
 import com.parse.ParsePush;
-
-import android.util.Log;
 
 public class ParsePlugin extends CordovaPlugin {
 
@@ -30,11 +24,6 @@ public class ParsePlugin extends CordovaPlugin {
     private static final String ACTION_GET_SUBSCRIPTIONS = "getSubscriptions";
     private static final String ACTION_SUBSCRIBE = "subscribe";
     private static final String ACTION_UNSUBSCRIBE = "unsubscribe";
-    private static final String ACTION_REGISTER_CALLBACK = "registerCallback";
-
-    private static CordovaWebView sWebView;
-    private static String sEventCallback = null;
-    private static JSONObject sLaunchNotification = null;
 
     public static void initializeParseWithApplication(Application app) {
         String appId = getStringByKey(app, "parse_app_id");
@@ -115,7 +104,7 @@ public class ParsePlugin extends CordovaPlugin {
     private void getSubscriptions(final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
-                 Set<String> subscriptions = PushService.getSubscriptions(cordova.getActivity());
+                 List<String> subscriptions = ParseInstallation.getCurrentInstallation().getList("subscriptions");
                  callbackContext.success(subscriptions.toString());
             }
         });
@@ -137,29 +126,5 @@ public class ParsePlugin extends CordovaPlugin {
                 callbackContext.success();
             }
         });
-    }
-
-    @Override
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
-        sEventCallback = null;
-        sWebView = this.webView;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        sEventCallback = null;
-        sWebView = null;
-    }
-
-    @Override
-    public void onPause(boolean multitasking) {
-        super.onPause(multitasking);
-    }
-
-    @Override
-    public void onResume(boolean multitasking) {
-        super.onResume(multitasking);
     }
 }
