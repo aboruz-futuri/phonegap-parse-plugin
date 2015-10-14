@@ -98,7 +98,13 @@ public class ParsePlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
                  List<String> subscriptions = ParseInstallation.getCurrentInstallation().getList("subscriptions");
-                 callbackContext.success(subscriptions.toString());
+                 if (subscriptions != null) {
+                     callbackContext.success(subscriptions.toString());
+                 }
+                 else {
+                    callbackContext.error("No subscriptions returned.")
+                 }
+                 
             }
         });
     }
