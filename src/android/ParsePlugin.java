@@ -102,7 +102,7 @@ public class ParsePlugin extends CordovaPlugin {
                      callbackContext.success(subscriptions.toString());
                  }
                  else {
-                    callbackContext.error("No subscriptions returned.");
+                     callbackContext.success("[]");
                  }
                  
             }
