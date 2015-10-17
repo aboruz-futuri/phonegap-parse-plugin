@@ -20,7 +20,25 @@
                 <param name="android-package" value="org.apache.cordova.core.ParsePlugin" />
             </feature>
         </config-file>
-
+        
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+          <service android:name="com.parse.PushService" />
+          <receiver android:name="com.parse.GcmBroadcastReceiver"
+              android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+              <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+              <category android:name="$PACKAGE_NAME" />
+            </intent-filter>
+          </receiver>
+          <receiver android:exported="false" android:name="org.apache.cordova.core.ParsePluginReceiver">
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
+            </intent-filter>
+          </receiver>
+        </config-file>
+        
         <config-file target="AndroidManifest.xml" parent="/manifest">
           <uses-permission android:name="android.permission.INTERNET" />
           <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
