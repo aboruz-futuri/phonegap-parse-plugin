@@ -55,6 +55,7 @@
         <source-file src="src/android/parse/parse-android-1.10.3.jar" target-dir="libs" framework="true" />
         <source-file src="src/android/parse/bolts-android-1.2.1.jar" target-dir="libs" framework="true" />
         <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" />
+        <source-file src="src/android/ParsePluginBroadcastReceiver.java" target-dir="src/org/apache/cordova/core" />
 
         <source-file src="src/android/parseplugin.xml" target-dir="res/values" />
         <config-file target="res/values/parseplugin.xml" parent="/*">
