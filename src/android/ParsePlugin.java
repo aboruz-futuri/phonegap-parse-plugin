@@ -97,7 +97,7 @@ public class ParsePlugin extends CordovaPlugin {
     private void getSubscriptions(final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
-                 List<String> subscriptions = ParseInstallation.getCurrentInstallation().getList("subscriptions");
+                 List<String> subscriptions = ParseInstallation.getCurrentInstallation().getList("channels");
                  if (subscriptions != null) {
                      callbackContext.success(subscriptions.toString());
                  }
