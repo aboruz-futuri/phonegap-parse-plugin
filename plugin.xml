@@ -31,7 +31,7 @@
               <category android:name="$PACKAGE_NAME" />
             </intent-filter>
           </receiver>
-          <receiver android:exported="false" android:name="org.apache.cordova.core.ParsePluginBroadcastReceiver">
+          <receiver android:exported="false" android:name="com.parse.ParsePushBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
